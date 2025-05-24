@@ -8,6 +8,10 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/", express.static("public"));
 
+app.get("/answers/wordle/", (req, res) => {
+    res.sendFile(__dirname + "/public/answers/wordle.html");
+});
+
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });

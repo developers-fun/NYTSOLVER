@@ -1,0 +1,35 @@
+.AnswerButton {
+    width: fit-content;
+    text-align: center;
+    width: 400px;
+    height: fit-content;
+    outline: none;
+    border: 2px white solid;
+    border-radius: 15px;
+    background-color: transparent;
+    transition: all ease 0.5s;
+    font-weight: 700;
+    padding: 15px;
+}
+
+main {
+    justify-items: center;
+}
+
+.AnswerButton > h2 {
+    font-size: 2rem;
+}
+
+.AnswerButton > .des {
+    font-size: 1.25rem;
+}
+
+.green {
+    color: lightgreen;
+    font-size: 2.5rem;
+}
+
+.AnswerButton:hover {
+    border-radius: 5px;
+    transform: translateY(-5px);
+}

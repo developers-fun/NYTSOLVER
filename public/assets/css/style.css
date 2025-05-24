@@ -10,6 +10,10 @@
     font-family: var(--font);
 }
 
+a {
+    text-decoration: none;
+}
+
 body {
     background-color: #150002;
 }
@@ -66,7 +70,8 @@ header > :nth-child(1) {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    margin-top: 30%;
+    margin-top: 35%;
+    justify-content: center;
 }
 
 .card {
@@ -75,15 +80,16 @@ header > :nth-child(1) {
     padding: 10px;
     margin: 15px;
     width: fit-content;
-    max-width: 50ch;
+    max-width: 35ch;
     align-items: center;
     border-radius: 15px;
     border: 1.5px white solid;
+    text-decoration: none;
 }
 
 .card > img {
     margin: 10px;
-    width: 200px;
+    width: 150px;
 }
 
 .card > span {
@@ -91,7 +97,7 @@ header > :nth-child(1) {
 }
 
 .card > p {
-    color: #4b4b4b;
+    color: #747474;
     font-size: 1.5rem;
     text-align: center;
 }
