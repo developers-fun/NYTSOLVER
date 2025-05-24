@@ -1,0 +1,97 @@
+:root {
+    --font: "Inter","Inter Fallback",ui-sans-serif,system-ui,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    color: white;
+    font-family: var(--font);
+}
+
+body {
+    background-color: #150002;
+}
+
+header {
+    height: 80px;
+    padding: 0 25px;
+    align-items: center;
+    justify-content: space-between;
+    display: flex;
+    flex-direction: row;
+    border-bottom: #e91616 3px solid;
+}
+
+header > :nth-child(1) {
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.red {
+    color: #e91616;
+}
+
+.headimg {
+    width: 60px;
+    height: 60px;
+    transition: 0.3s ease all;
+}
+
+.headimg:hover {
+    width: 70px;
+    height: 70px;
+}
+
+/*MAIN STYLING*/
+
+.hero {
+    text-align: center;
+    padding: 25px;
+    margin: 25px;
+}
+
+.hero > h1 {
+    font-size: 3rem;
+}
+
+.hero > span {
+    font-size: 2rem;
+}
+
+.gameCards {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: 30%;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    margin: 15px;
+    width: fit-content;
+    max-width: 50ch;
+    align-items: center;
+    border-radius: 15px;
+    border: 1.5px white solid;
+}
+
+.card > img {
+    margin: 10px;
+    width: 200px;
+}
+
+.card > span {
+    font-size: 2.25rem;
+}
+
+.card > p {
+    color: #4b4b4b;
+    font-size: 1.5rem;
+    text-align: center;
+}
