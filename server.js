@@ -34,19 +34,23 @@ app.use("/", express.static("public"));
 
 // HTML routes
 app.get("/answers/wordle/", (req, res) => {
-    res.sendFile(__dirname + "/public/answers/wordle.html");
+    res.status(200).sendFile(__dirname + "/public/answers/wordle.html");
 });
 
 app.get("/answers/connections/", (req, res) => {
-    res.sendFile(__dirname + "/public/answers/connections.html");
+    res.status(200).sendFile(__dirname + "/public/answers/connections.html");
 });
 
 app.get("/answers/mini-crossword/", (req, res) => {
-    res.sendFile(__dirname + "/public/answers/mini-crossword.html");
+    res.status(200).sendFile(__dirname + "/public/answers/mini-crossword.html");
 });
 
 app.get("/answers/strands/", (req, res) => {
-    res.sendFile(__dirname + "/public/answers/strands.html");
+    res.status(200).sendFile(__dirname + "/public/answers/strands.html");
+});
+
+app.get("/play/wordle/", (req, res) => {
+    res.status(200).sendFile(__dirname + "/public/play/wordle.html");
 });
 
 // For local development
