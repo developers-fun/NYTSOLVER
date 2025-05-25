@@ -5,7 +5,8 @@ const jsonData = {
     "texts": [
         "Wordle!",
         "Crosswords!",
-        "Spelling Bee!"
+        "Strands!",
+        "Mini-Crosswords!"
     ]
 };
 
