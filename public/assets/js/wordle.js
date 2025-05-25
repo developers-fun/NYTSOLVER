@@ -1,18 +1,55 @@
 const answerBox = document.getElementById("answerBox");
 
-function fetchToday() {
-    //Fetch res
-    fetch("/api/wordle")
-        .then(response => response.json())
-        .then(data => {
-            answerBox.innerText = data.today;
-        })
-        .catch(error => {
-            console.error("Error fetching today's answer:", error);
-            answerBox.innerText = "Error loading answer";
-        });
-
-        console.log("Fetching today's answer...");
+function formatDate(date) {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
 }
 
-document.addEventListener("DOMContentLoaded", fetchToday)
+function getDateFromUrl() {
+    const params = new URLSearchParams(window.location.search);
+    const dateParam = params.get('date');
+    if (dateParam) {
+        return dateParam;
+    }
+    return formatDate(new Date());
+}
+
+function updateUrl(date) {
+    const url = new URL(window.location);
+    url.searchParams.set('date', date);
+    window.history.pushState({}, '', url);
+}
+
+function fetchWordle(date) {
+    //Fetch res
+    fetch(`/api/wordle?date=${date}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            answerBox.innerText = data.today;
+            // Update the URL with the current date
+            updateUrl(date);
+        })
+        .catch(error => {
+            console.error("Error fetching wordle answer:", error);
+            answerBox.innerText = "Error loading answer";
+        });
+}
+
+function fetchToday() {
+    const date = getDateFromUrl();
+    fetchWordle(date);
+}
+
+// Handle browser back/forward buttons
+window.addEventListener('popstate', () => {
+    fetchToday();
+});
+
+document.addEventListener("DOMContentLoaded", fetchToday);

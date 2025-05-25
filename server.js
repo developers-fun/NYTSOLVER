@@ -3,10 +3,25 @@ const wordle = require("./api/wordle");
 const connections = require("./api/connections");
 const miniCrossword = require("./api/mini-crossword");
 const strands = require("./api/strands");
+const db = require('./db');
 const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Initialize daily tasks
+async function initializeDailyTasks() {
+    try {
+        console.log('Initializing daily tasks...');
+        // Check and create sitemap if needed
+        await db.checkAndCreateSitemap();
+        // Fetch today's Wordle immediately
+        await db.fetchNewWordle();
+        console.log('Initial Wordle fetch completed');
+    } catch (error) {
+        console.error('Error during initialization:', error);
+    }
+}
 
 // API routes
 app.use("/api/wordle", wordle);
@@ -36,10 +51,14 @@ app.get("/answers/strands/", (req, res) => {
 
 // For local development
 if (process.env.NODE_ENV !== 'production') {
-    const port = 3001;
-    app.listen(port, () => {
+    const port = 3000;
+    app.listen(port, async () => {
         console.log(`Server is running on port ${port}`);
+        await initializeDailyTasks();
     });
+} else {
+    // For production, initialize tasks when the server starts
+    initializeDailyTasks();
 }
 
 // Export for Vercel
