@@ -89,11 +89,18 @@ header > :nth-child(1) {
     border-radius: 15px;
     border: 1.5px white solid;
     text-decoration: none;
+    transition: 0.3s ease all;
+}
+
+.card:hover {
+    border-radius: 5px;
+    border: 1.5px #e91616 solid;
 }
 
 .card > img {
     margin: 10px;
     width: 150px;
+    border-radius: 20px;
 }
 
 .card > span {
