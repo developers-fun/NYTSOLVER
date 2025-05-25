@@ -11,7 +11,7 @@ Disallow: /admin/
 Disallow: /temp/
 
 # Sitemap location
-Sitemap: https://nytsolver.com/sitemap.xml
+Sitemap: https://nytsolver.net/sitemap.xml
 
 # Crawl delay to prevent server overload
 Crawl-delay: 10 
