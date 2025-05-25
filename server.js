@@ -1,6 +1,7 @@
 const express = require('express');
-const today = require("./api/wordle");
+const wordle = require("./api/wordle");
 const connections = require("./api/connections");
+const miniCrossword = require("./api/mini-crossword");
 const app = express();
 const port = 3001;
 
@@ -8,8 +9,9 @@ app.use(express.json());
 
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/api/today", today);
+app.use("/api/wordle", wordle);
 app.use("/api/connections", connections);
+app.use("/api/mini-crossword", miniCrossword);
 
 app.use("/", express.static("public"));
 
@@ -19,6 +21,10 @@ app.get("/answers/wordle/", (req, res) => {
 
 app.get("/answers/connections/", (req, res) => {
     res.sendFile(__dirname + "/public/answers/connections.html");
+});
+
+app.get("/answers/mini-crossword/", (req, res) => {
+    res.sendFile(__dirname + "/public/answers/mini-crossword.html");
 });
 
 app.listen(port, () => {

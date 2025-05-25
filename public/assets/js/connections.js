@@ -46,7 +46,7 @@ function fetchToday() {
             answerBox.innerText = "Error loading answer";
         });
 
-    console.log("Fetching today's answer...");
+        console.log("Fetching today's answer...");
 }
 
 document.addEventListener("DOMContentLoaded", fetchToday);
