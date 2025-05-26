@@ -10,6 +10,8 @@
     transition: all ease 0.5s;
     font-weight: 700;
     padding: 15px;
+    cursor: pointer;
+    margin-top: 20px;
 }
 
 main {
@@ -27,9 +29,67 @@ main {
 .green {
     color: lightgreen;
     font-size: 5rem;
+    opacity: 0;
+    max-height: 0;
+    transition: all 0.3s ease;
+}
+
+.AnswerButton.active .green {
+    opacity: 1;
+    max-height: 100px;
+}
+
+.AnswerButton.active {
+    border-color: lightgreen;
 }
 
 .AnswerButton:hover {
     border-radius: 5px;
     transform: translateY(-5px);
+}
+
+.hints-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 400px;
+    margin-top: 30px;
+}
+
+.hint-box {
+    background-color: transparent;
+    border: 2px solid white;
+    border-radius: 10px;
+    cursor: pointer;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.hint-box:hover {
+    transform: translateY(-3px);
+    border-radius: 5px;
+}
+
+.hint-header {
+    padding: 12px 15px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.hint-content {
+    padding: 15px;
+    font-size: 1rem;
+    max-height: 0;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.hint-box.active .hint-content {
+    max-height: 100px;
+    opacity: 1;
+}
+
+.hint-box.active {
+    border-color: lightgreen;
 }

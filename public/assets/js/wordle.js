@@ -1,4 +1,6 @@
 const answerBox = document.getElementById("answerBox");
+const hintBoxes = document.querySelectorAll('.hint-box');
+const answerButton = document.getElementById("answer");
 
 function formatDate(date) {
     const year = date.getFullYear();
@@ -22,8 +24,18 @@ function updateUrl(date) {
     window.history.pushState({}, '', url);
 }
 
+function updateHints(hints) {
+    hintBoxes.forEach((box, index) => {
+        const content = box.querySelector('.hint-content');
+        content.textContent = hints[index];
+        
+        box.addEventListener('click', () => {
+            box.classList.toggle('active');
+        });
+    });
+}
+
 function fetchWordle(date) {
-    //Fetch res
     fetch(`/api/wordle?date=${date}`)
         .then(response => {
             if (!response.ok) {
@@ -33,7 +45,9 @@ function fetchWordle(date) {
         })
         .then(data => {
             answerBox.innerText = data.today;
-            // Update the URL with the current date
+            if (data.hints) {
+                updateHints(data.hints);
+            }
             updateUrl(date);
         })
         .catch(error => {
@@ -41,6 +55,11 @@ function fetchWordle(date) {
             answerBox.innerText = "Error loading answer";
         });
 }
+
+// Add click handler for the answer button
+answerButton.addEventListener('click', () => {
+    answerButton.classList.toggle('active');
+});
 
 function fetchToday() {
     const date = getDateFromUrl();
