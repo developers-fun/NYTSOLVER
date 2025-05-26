@@ -53,6 +53,11 @@ app.get("/play/wordle/", (req, res) => {
     res.status(200).sendFile(__dirname + "/public/play/wordle.html");
 });
 
+// Catch-all route for 404 errors
+app.use((req, res) => {
+    res.status(404).sendFile(__dirname + "/public/404.html");
+});
+
 // For local development
 if (process.env.NODE_ENV !== 'production') {
     const port = 3000;

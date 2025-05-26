@@ -25,7 +25,6 @@ router.get('/', async (req, res) => {
             const date = req.query.date;
             try {
                 const dbWord = await db.getWordle(date);
-                console.log("Custom date wordle: ", date, dbWord);
                 if (dbWord) {
                     return res.json({ today: dbWord });
                 }

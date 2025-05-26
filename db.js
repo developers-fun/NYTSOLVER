@@ -93,7 +93,7 @@ const generateSitemap = async () => {
 const generateSitemapXML = async () => {
   try {
     const urls = await generateSitemap();
-    const sitemapPath = path.join(__dirname, 'public', 'wordle-sitemap.xml');
+    const sitemapPath = path.join(__dirname, 'public', 'sitemap', 'wordle-sitemap.xml');
     
     // Create XML content
     const xmlContent = `<?xml version="1.0" encoding="UTF-8"?>
