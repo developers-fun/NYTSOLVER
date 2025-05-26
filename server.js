@@ -1,6 +1,7 @@
 const express = require('express');
 const wordle = require("./api/wordle");
 const connections = require("./api/connections");
+const sitemap = require("./api/sitemap");
 const miniCrossword = require("./api/mini-crossword");
 const strands = require("./api/strands");
 const db = require('./db');
@@ -13,8 +14,6 @@ app.use(express.urlencoded({ extended: true }));
 async function initializeDailyTasks() {
     try {
         console.log('Initializing daily tasks...');
-        // Check and create sitemap if needed
-        await db.checkAndCreateSitemap();
         // Fetch today's Wordle immediately
         await db.fetchNewWordle();
         console.log('Initial Wordle fetch completed');
@@ -28,6 +27,7 @@ app.use("/api/wordle", wordle);
 app.use("/api/connections", connections);
 app.use("/api/mini-crossword", miniCrossword);
 app.use("/api/strands", strands);
+app.use("/sitemap/wordle-sitemap.xml", sitemap);
 
 // Serve static files
 app.use("/", express.static("public"));

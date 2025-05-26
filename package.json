@@ -16,6 +16,7 @@
     "express": "^5.1.0",
     "node-cache": "^5.1.2",
     "node-fetch": "^2.7.0",
+    "nytsolver": "file:",
     "puppeteer": "^24.8.2",
     "sqlite3": "^5.1.7"
   }
