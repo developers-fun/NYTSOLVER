@@ -4,15 +4,15 @@
     <url>
         <loc>https://nytsolver.net/</loc>
         <lastmod>2024-03-19</lastmod>
-        <changefreq>daily</changefreq>
+        <changefreq>weekly</changefreq>
         <priority>1.0</priority>
     </url>
 
     <!-- Wordle -->
     <url>
         <loc>https://nytsolver.net/answers/wordle/</loc>
-        <lastmod>2024-03-19</lastmod>
-        <changefreq>daily</changefreq>
+        <lastmod>2024-03-25</lastmod>
+        <changefreq>monthly</changefreq>
         <priority>0.9</priority>
     </url>
 
@@ -20,7 +20,7 @@
     <url>
         <loc>https://nytsolver.net/answers/connections/</loc>
         <lastmod>2024-03-19</lastmod>
-        <changefreq>daily</changefreq>
+        <changefreq>monthly</changefreq>
         <priority>0.9</priority>
     </url>
 
@@ -28,15 +28,22 @@
     <url>
         <loc>https://nytsolver.net/answers/mini-crossword/</loc>
         <lastmod>2024-03-19</lastmod>
-        <changefreq>daily</changefreq>
+        <changefreq>monthly</changefreq>
         <priority>0.9</priority>
     </url>
 
-    <!-- KenKen -->
+    <!-- strands -->
     <url>
-        <loc>https://nytsolver.net/answers/kenken/</loc>
-        <lastmod>2024-03-19</lastmod>
-        <changefreq>daily</changefreq>
+        <loc>https://nytsolver.net/answers/strands/</loc>
+        <lastmod>2024-03-25</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+         <!-- Wordle Game -->
+    <url>
+        <loc>https://nytsolver.net/play/wordle/</loc>
+        <lastmod>2024-03-25</lastmod>
+        <changefreq>monthly</changefreq>
         <priority>0.9</priority>
     </url>
 </urlset>
