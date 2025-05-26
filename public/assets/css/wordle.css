@@ -93,3 +93,19 @@ main {
 .hint-box.active {
     border-color: lightgreen;
 }
+
+.daybutton {
+    width: fit-content;
+    text-align: center;
+    width: 400px;
+    height: fit-content;
+    outline: none;
+    border: 2px white solid;
+    border-radius: 15px;
+    background-color: transparent;
+    transition: all ease 0.5s;
+    font-weight: 700;
+    padding: 15px;
+    cursor: pointer;
+    margin-top: 20px;
+}

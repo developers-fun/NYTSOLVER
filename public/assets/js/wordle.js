@@ -6,7 +6,26 @@ function formatDate(date) {
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const day = String(date.getDate()).padStart(2, '0');
+
     return `${year}-${month}-${day}`;
+}
+async function tomorrow() {
+    const today = new Date();
+    const tomorrowDate = new Date(today);
+    tomorrowDate.setDate(today.getDate() + 1);
+    window.location.href = window.location.href.split('?')[0] + '?date=' + await formatDate(tomorrowDate);
+}
+
+async function today() {
+    const today = new Date();
+    window.location.href = window.location.href.split('?')[0] + '?date=' + await formatDate(today);
+}
+
+async function yesterday() {
+    const today = new Date();
+    const yesterdayDate = new Date(today);
+    yesterdayDate.setDate(today.getDate() - 1);
+    window.location.href = window.location.href.split('?')[0] + '?date=' + await formatDate(yesterdayDate);
 }
 
 function getDateFromUrl() {
@@ -71,4 +90,7 @@ window.addEventListener('popstate', () => {
     fetchToday();
 });
 
+document.getElementById("tomorrow").addEventListener("click", tomorrow);
+document.getElementById("yesterday").addEventListener("click", yesterday);
+document.getElementById("today").addEventListener("click", today);
 document.addEventListener("DOMContentLoaded", fetchToday);
