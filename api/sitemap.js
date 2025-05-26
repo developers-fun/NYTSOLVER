@@ -22,7 +22,7 @@ router.get("/", async (req, res) => {
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${urls.map(entry => `  <url>
     <loc>${entry.url}</loc>
-    <lastmod>${entry.lastmod}</lastmod>
+    <lastmod>2025-05-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>`).join('\n')}
