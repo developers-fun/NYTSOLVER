@@ -7,17 +7,6 @@ const db = require('../db'); // Assuming you have a db.js file for SQLite
 // Initialize cache with 30 minute TTL
 const cache = new NodeCache({ stdTTL: 30 * 60 });
 
-// Sitemap endpoint for Wordle solutions
-router.get('/sitemap', async (req, res) => {
-    try {
-        const urls = await db.generateSitemap();
-        res.json({ urls });
-    } catch (error) {
-        console.error('Error generating Wordle sitemap:', error);
-        res.status(500).json({ error: 'Failed to generate sitemap' });
-    }
-});
-
 router.get('/', async (req, res) => {
     try {
         // Handle custom date query
@@ -26,7 +15,8 @@ router.get('/', async (req, res) => {
             try {
                 const dbWord = await db.getWordle(date);
                 if (dbWord) {
-                    return res.json({ today: dbWord });
+                    const hints = generateHints(dbWord); // Generate hints for the fetched word
+                    return res.json({ today: dbWord, hints }); // Include hints in the response
                 }
                 
                 // If not in database, try to fetch from NYT
@@ -48,7 +38,8 @@ router.get('/', async (req, res) => {
                     console.error('Error inserting wordle into database:', insertError);
                 }
 
-                return res.json({ today: data.solution });
+                const hints = generateHints(data.solution); // Generate hints for the fetched solution
+                return res.json({ today: data.solution, hints }); // Include hints in the response
             } catch (error) {
                 console.error('Error handling custom date:', error);
                 return res.status(500).json({ error: 'Failed to fetch word for the given date' });
@@ -60,14 +51,18 @@ router.get('/', async (req, res) => {
         const cachedAnswer = cache.get('wordleAnswer');
         if (cachedAnswer) {
             console.log('Cache hit for wordle answer');
-            return res.json({ today: cachedAnswer });
+            const hints = generateHints(cachedAnswer); // Generate hints for the cached answer
+            return res.json({ today: cachedAnswer, hints }); // Include hints in the response
         }
 
         // Try to get today's wordle
         try {
             const todayWordle = await db.fetchNewWordle();
             cache.set('wordleAnswer', todayWordle);
-            return res.json({ today: todayWordle });
+
+            // Generate hints
+            const hints = generateHints(todayWordle); // Generate hints for today's wordle
+            return res.json({ today: todayWordle, hints }); // Include hints in the response
         } catch (error) {
             console.error('Error fetching today\'s Wordle:', error);
             return res.status(500).json({ error: 'Failed to fetch today\'s answer' });
@@ -77,5 +72,34 @@ router.get('/', async (req, res) => {
         res.status(500).json({ error: 'Failed to fetch today\'s answer' });
     }
 });
+
+// Function to generate hints based on the word
+function generateHints(word) {
+    const hints = [];
+    
+    // Hint 1: Repeating letters
+    const letterCount = {};
+    for (const letter of word) {
+        letterCount[letter] = (letterCount[letter] || 0) + 1;
+    }
+    const repeatingLetters = Object.keys(letterCount).filter(letter => letterCount[letter] > 1);
+    hints.push(`Hint 1: ${repeatingLetters.length > 0 ? `Repeating letters: ${repeatingLetters.join(', ')}` : 'No repeating letters'}`);
+
+    // Hint 2: Vowel count
+    const vowels = word.match(/[aeiou]/gi) || [];
+    hints.push(`Hint 2: Vowel count: ${vowels.length}`);
+
+    // Hint 3: Consonant count
+    const consonants = word.match(/[^aeiou]/gi) || [];
+    hints.push(`Hint 3: Consonant count: ${consonants.length}`);
+
+    // Hint 4: First letter
+    hints.push(`Hint 4: First letter: ${word[0]}`);
+
+    // Hint 5: Last letter
+    hints.push(`Hint 5: Last letter: ${word[word.length - 1]}`);
+
+    return hints;
+}
 
 module.exports = router;    

@@ -23,16 +23,28 @@ db.serialize(() => {
   });
 });
 
-const insertWordle = (date, word) => {
+const insertWordle = async (date, word) => {
   return new Promise((resolve, reject) => {
     db.serialize(() => {
-      db.run("INSERT INTO wordles (date, word) VALUES (?, ?)", [date, word], function (err) {
+      // Check for existing wordle for the given date
+      db.get("SELECT COUNT(*) as count FROM wordles WHERE date = ?", [date], (err, row) => {
         if (err) {
-          console.error('Error inserting wordle ' + err.message);
+          console.error('Error checking for existing wordle ' + err.message);
           reject(err);
+        } else if (row.count > 0) {
+          console.log(`Wordle for date ${date} already exists. Skipping insert.`);
+          resolve(); // Skip insertion if it already exists
         } else {
-          console.log(`Inserted wordle with date ${date} and word ${word}`);
-          resolve();
+          // Proceed to insert if no existing entry
+          db.run("INSERT INTO wordles (date, word) VALUES (?, ?)", [date, word], function (err) {
+            if (err) {
+              console.error('Error inserting wordle ' + err.message);
+              reject(err);
+            } else {
+              console.log(`Inserted wordle with date ${date} and word ${word}`);
+              resolve();
+            }
+          });
         }
       });
     });
