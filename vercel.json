@@ -28,10 +28,6 @@
             "destination": "/api/strands.js"
         },
         {
-            "source": "/sitemap/wordle-sitemap.xml",
-            "destination": "/api/sitemap.js"
-        },
-        {
             "source": "/answers/wordle/",
             "destination": "/answers/wordle.html"
         },
