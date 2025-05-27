@@ -95,39 +95,6 @@ app.use("/api/mini-crossword", apiCache(300), miniCrossword);
 app.use("/api/strands", apiCache(300), strands);
 app.use("/sitemap/wordle-sitemap.xml", apiCache(3600), sitemap); // Cache for 1 hour
 
-// Serve static files with caching
-app.use("/", staticCacheControl, express.static("public", {
-    maxAge: '1y',
-    etag: true,
-    lastModified: true
-}));
-
-// HTML routes with caching
-const htmlCacheControl = (req, res, next) => {
-    res.set('Cache-Control', 'public, max-age=3600'); // 1 hour for HTML
-    next();
-};
-
-app.get("/answers/wordle/", htmlCacheControl, (req, res) => {
-    res.status(200).sendFile(__dirname + "/public/answers/wordle.html");
-});
-
-app.get("/answers/connections/", htmlCacheControl, (req, res) => {
-    res.status(200).sendFile(__dirname + "/public/answers/connections.html");
-});
-
-app.get("/answers/mini-crossword/", htmlCacheControl, (req, res) => {
-    res.status(200).sendFile(__dirname + "/public/answers/mini-crossword.html");
-});
-
-app.get("/answers/strands/", htmlCacheControl, (req, res) => {
-    res.status(200).sendFile(__dirname + "/public/answers/strands.html");
-});
-
-app.get("/play/wordle/", htmlCacheControl, (req, res) => {
-    res.status(200).sendFile(__dirname + "/public/play/wordle.html");
-});
-
 // Catch-all route for 404 errors
 app.use((req, res) => {
     res.status(404).sendFile(__dirname + "/public/404.html");
