@@ -10,6 +10,9 @@
         {"source": "/api/mini-crossword", "destination": "/api/mini-crossword.js"},
         {"source": "/api/strands", "destination": "/api/strands.js"},
         {"source": "/answers/wordle/", "destination": "/answers/wordle.html"},
+        {"source": "/answers/connections/", "destination": "/answers/connections.html"},
+        {"source": "/answers/mini-crossword/", "destination": "/answers/mini-crossword.html"},
+        {"source": "/answers/strands/", "destination": "/answers/strands.html"},
         {"source": "/play/wordle", "destination": "/play/wordle.html"},
         {"source": "/(.*)", "destination": "/public/$1"}
     ]
