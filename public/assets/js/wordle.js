@@ -9,6 +9,14 @@ function formatDate(date) {
 
     return `${year}-${month}-${day}`;
 }
+
+function formatReadableDate(date) {
+    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    const month = months[date.getMonth()];
+    const day = date.getDate();
+    return `${month} ${day}`;
+}
+
 async function tomorrow() {
     const today = new Date();
     const tomorrowDate = new Date(today);
@@ -68,6 +76,18 @@ function fetchWordle(date) {
                 updateHints(data.hints);
             }
             updateUrl(date);
+            
+            // Update h1 text based on date
+            const h1 = document.querySelector('.hero h1');
+            const currentDate = new Date();
+            // Parse the date string correctly by adding time component
+            const selectedDate = new Date(date + 'T00:00:00');
+            
+            if (selectedDate.toDateString() === currentDate.toDateString()) {
+                h1.textContent = "What is today's Wordle?";
+            } else {
+                h1.textContent = `Wordle answers ${formatReadableDate(selectedDate)}`;
+            }
         })
         .catch(error => {
             console.error("Error fetching wordle answer:", error);
