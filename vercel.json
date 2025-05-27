@@ -4,6 +4,10 @@
         {
             "src": "api/**/*.js",
             "use": "@vercel/node"
+        },
+        {
+            "src": "public/**",
+            "use": "@vercel/static"
         }
     ],
     "rewrites": [
@@ -28,7 +32,7 @@
             "destination": "/api/sitemap.js"
         },
         {
-            "source": "/answers/wordle",
+            "source": "/answers/wordle/",
             "destination": "/answers/wordle.html"
         },
         {
@@ -37,7 +41,12 @@
         },
         {
             "source": "/(.*)",
-            "destination": "/$1"
+            "destination": "/public/$1"
+        },
+        {
+            "source": "/(.*)",
+            "destination": "/public/404.html",
+            "statusCode": 404
         }
     ],
     "headers": [
