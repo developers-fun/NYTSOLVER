@@ -136,5 +136,4 @@ app.use((req, res) => {
 // Initialize tasks when the server starts
 initializeDailyTasks().catch(console.error);
 
-// Export for Vercel
-module.exports = app;
+app.listen(3001)
