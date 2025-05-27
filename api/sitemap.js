@@ -1,11 +1,24 @@
-const express = require('express');
-const db = require("../db")
-const router = express.Router();
+const db = require("../db");
 
 let cachedSitemap = null;
 let sitemapCacheTime = null;
 
-router.get("/", async (req, res) => {
+module.exports = async (req, res) => {
+    // Set CORS headers
+    res.setHeader('Access-Control-Allow-Credentials', true);
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS');
+    res.setHeader(
+        'Access-Control-Allow-Headers',
+        'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
+    );
+
+    // Handle OPTIONS request
+    if (req.method === 'OPTIONS') {
+        res.status(200).end();
+        return;
+    }
+
     const currentTime = new Date().getTime();
     const cacheDuration = 5 * 60 * 60 * 1000; // 5 hours in milliseconds
 
@@ -38,7 +51,4 @@ ${urls.map(entry => `  <url>
         console.error('Error generating sitemap:', error);
         return res.status(500).send('Error generating sitemap');
     }
-});
-
-// Export the router
-module.exports = router;
+};

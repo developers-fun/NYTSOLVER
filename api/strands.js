@@ -1,12 +1,25 @@
-const express = require('express');
-const router = express.Router();
 const fetch = require('node-fetch');
 const NodeCache = require('node-cache');
 
 // Initialize cache with 6 hour TTL
 const cache = new NodeCache({ stdTTL: 6 * 60 * 60 });
 
-router.get('/', async (req, res) => {
+module.exports = async (req, res) => {
+    // Set CORS headers
+    res.setHeader('Access-Control-Allow-Credentials', true);
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS');
+    res.setHeader(
+        'Access-Control-Allow-Headers',
+        'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
+    );
+
+    // Handle OPTIONS request
+    if (req.method === 'OPTIONS') {
+        res.status(200).end();
+        return;
+    }
+
     try {
         // Try to get from cache first
         const cachedAnswer = cache.get('strandsAnswer');
@@ -88,6 +101,4 @@ router.get('/', async (req, res) => {
             message: error.message
         });
     }
-});
-
-module.exports = router; 
+}; 
