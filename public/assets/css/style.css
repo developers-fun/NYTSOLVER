@@ -111,3 +111,45 @@ header > :nth-child(1) {
     font-size: 1.5rem;
     text-align: center;
 }
+
+footer {
+    width: 100%;
+    display: flex;
+    height: 100px;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 25px;
+    border-top: #e91616 3px solid;
+}
+
+footer > :nth-child(1) {
+    width: 50%;
+}
+
+footer > :nth-child(2) {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    text-align: left;
+}
+
+footer > :nth-child(2) > a {
+    font-size: 1.25rem;
+    color: #e74c3c;
+    transition: 0.3s ease all;
+}
+
+footer > :nth-child(2) > a:hover {
+    transform: scale(1.05);
+}
+
+footer > :nth-child(1) > h3 {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+footer > :nth-child(1) > p {
+    font-size: 1.25rem;
+    color: #747474;
+}
