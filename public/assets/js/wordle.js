@@ -16,7 +16,7 @@ function formatReadableDate(date) {
     const day = date.getDate();
     return `${month} ${day}`;
 }
-
+/*
 async function tomorrow() {
     const today = new Date();
     const tomorrowDate = new Date(today);
@@ -35,7 +35,7 @@ async function yesterday() {
     yesterdayDate.setDate(today.getDate() - 1);
     window.location.href = window.location.href.split('?')[0] + '?date=' + await formatDate(yesterdayDate);
 }
-
+*/
 function getDateFromUrl() {
     const params = new URLSearchParams(window.location.search);
     const dateParam = params.get('date');

@@ -98,6 +98,65 @@
     border-radius: 5px;
 }
 
+.page-info {
+    color: #888;
+    font-size: 0.9rem;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+}
+
+.pagination-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.page-numbers {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.ellipsis {
+    color: #888;
+    font-size: 0.9rem;
+    padding: 0 5px;
+    user-select: none;
+}
+
+.pagination-controls button {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #fff;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+}
+
+.pagination-controls button:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.pagination-controls button.active {
+    background: rgba(233, 22, 22, 0.1);
+    border-color: #e91616;
+    color: #e91616;
+}
+
+.pagination-controls button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
 @media (max-width: 768px) {
     .strands-container {
         padding: 15px;
@@ -130,6 +189,20 @@
 
     .sort-controls button {
         padding: 6px 12px;
+        font-size: 0.8rem;
+    }
+    
+    .pagination-controls {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .page-numbers {
+        gap: 5px;
+    }
+    
+    .pagination-controls button {
+        padding: 8px 12px;
         font-size: 0.8rem;
     }
 } 

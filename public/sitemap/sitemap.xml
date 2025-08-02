@@ -11,7 +11,7 @@
     <!-- Wordle -->
     <url>
         <loc>https://nytsolver.net/answers/wordle/</loc>
-        <lastmod>2024-06-02</lastmod>
+        <lastmod>2024-07-04</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.9</priority>
     </url>
@@ -19,7 +19,7 @@
     <!-- Connections -->
     <url>
         <loc>https://nytsolver.net/answers/connections/</loc>
-        <lastmod>2024-03-19</lastmod>
+        <lastmod>2024-07-04</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.9</priority>
     </url>
@@ -27,7 +27,7 @@
     <!-- Mini Crossword -->
     <url>
         <loc>https://nytsolver.net/answers/mini-crossword/</loc>
-        <lastmod>2024-03-19</lastmod>
+        <lastmod>2024-07-04</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.9</priority>
     </url>
@@ -35,7 +35,7 @@
     <!-- strands -->
     <url>
         <loc>https://nytsolver.net/answers/strands/</loc>
-        <lastmod>2024-03-25</lastmod>
+        <lastmod>2024-07-04</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.9</priority>
     </url>

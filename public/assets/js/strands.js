@@ -1,6 +1,8 @@
 const wordsList = document.getElementById('wordsList');
 let currentWords = [];
 let currentSort = 'longest'; // Default sort: longest to shortest
+let currentPage = 1;
+const wordsPerPage = 10;
 
 function displayWords(data) {
     wordsList.innerHTML = '';
@@ -46,10 +48,14 @@ function displayWords(data) {
     
     // Display words with current sort
     displaySortedWords();
+    
+    // Add pagination controls
+    addPaginationControls();
 }
 
 function sortWords(sortType) {
     currentSort = sortType;
+    currentPage = 1; // Reset to first page when sorting
     displaySortedWords();
     
     // Update button states
@@ -57,6 +63,9 @@ function sortWords(sortType) {
     buttons.forEach(button => {
         button.className = button.textContent.toLowerCase().includes(sortType) ? 'active' : '';
     });
+    
+    // Update pagination controls
+    addPaginationControls();
 }
 
 function displaySortedWords() {
@@ -64,7 +73,7 @@ function displaySortedWords() {
     const existingItems = document.querySelectorAll('.word-item');
     existingItems.forEach(item => item.remove());
     
-    // Sort and display words
+    // Sort words
     const sortedWords = [...currentWords].sort((a, b) => {
         if (currentSort === 'longest') {
             return b.length - a.length;
@@ -73,7 +82,14 @@ function displaySortedWords() {
         }
     });
     
-    sortedWords.forEach(({ word, length }) => {
+    // Calculate pagination
+    const totalPages = Math.ceil(sortedWords.length / wordsPerPage);
+    const startIndex = (currentPage - 1) * wordsPerPage;
+    const endIndex = startIndex + wordsPerPage;
+    const wordsToShow = sortedWords.slice(startIndex, endIndex);
+    
+    // Display words for current page
+    wordsToShow.forEach(({ word, length }) => {
         const wordItem = document.createElement('div');
         wordItem.className = 'word-item';
         
@@ -89,6 +105,12 @@ function displaySortedWords() {
         wordItem.appendChild(wordLength);
         wordsList.appendChild(wordItem);
     });
+    
+    // Add page info
+    const pageInfo = document.createElement('div');
+    pageInfo.className = 'page-info';
+    pageInfo.textContent = `Showing ${startIndex + 1}-${Math.min(endIndex, sortedWords.length)} of ${sortedWords.length} words`;
+    wordsList.appendChild(pageInfo);
 }
 
 function fetchToday() {
@@ -110,6 +132,129 @@ function fetchToday() {
             console.error("Error fetching today's Strands:", error);
             wordsList.innerHTML = `<p>Error loading words: ${error.message}</p>`;
         });
+}
+
+function addPaginationControls() {
+    // Remove existing pagination controls
+    const existingPagination = document.querySelector('.pagination-controls');
+    if (existingPagination) {
+        existingPagination.remove();
+    }
+    
+    const sortedWords = [...currentWords].sort((a, b) => {
+        if (currentSort === 'longest') {
+            return b.length - a.length;
+        } else {
+            return a.length - b.length;
+        }
+    });
+    
+    const totalPages = Math.ceil(sortedWords.length / wordsPerPage);
+    
+    if (totalPages <= 1) return; // Don't show pagination if only one page
+    
+    const paginationContainer = document.createElement('div');
+    paginationContainer.className = 'pagination-controls';
+    
+    // Previous button
+    const prevButton = document.createElement('button');
+    prevButton.textContent = '← Previous';
+    prevButton.disabled = currentPage === 1;
+    prevButton.onclick = () => {
+        if (currentPage > 1) {
+            currentPage--;
+            displaySortedWords();
+            addPaginationControls();
+        }
+    };
+    paginationContainer.appendChild(prevButton);
+    
+    // Page numbers with ellipsis for overflow
+    const pageNumbers = document.createElement('div');
+    pageNumbers.className = 'page-numbers';
+    
+    const maxVisiblePages = 7; // Show max 7 page numbers
+    let startPage = 1;
+    let endPage = totalPages;
+    
+    if (totalPages > maxVisiblePages) {
+        if (currentPage <= 4) {
+            endPage = maxVisiblePages - 1;
+        } else if (currentPage >= totalPages - 3) {
+            startPage = totalPages - maxVisiblePages + 2;
+        } else {
+            startPage = currentPage - 2;
+            endPage = currentPage + 2;
+        }
+    }
+    
+    // First page
+    if (startPage > 1) {
+        const firstButton = document.createElement('button');
+        firstButton.textContent = '1';
+        firstButton.onclick = () => {
+            currentPage = 1;
+            displaySortedWords();
+            addPaginationControls();
+        };
+        pageNumbers.appendChild(firstButton);
+        
+        if (startPage > 2) {
+            const ellipsis = document.createElement('span');
+            ellipsis.className = 'ellipsis';
+            ellipsis.textContent = '...';
+            pageNumbers.appendChild(ellipsis);
+        }
+    }
+    
+    // Visible page numbers
+    for (let i = startPage; i <= endPage; i++) {
+        const pageButton = document.createElement('button');
+        pageButton.textContent = i;
+        pageButton.className = i === currentPage ? 'active' : '';
+        pageButton.onclick = () => {
+            currentPage = i;
+            displaySortedWords();
+            addPaginationControls();
+        };
+        pageNumbers.appendChild(pageButton);
+    }
+    
+    // Last page
+    if (endPage < totalPages) {
+        if (endPage < totalPages - 1) {
+            const ellipsis = document.createElement('span');
+            ellipsis.className = 'ellipsis';
+            ellipsis.textContent = '...';
+            pageNumbers.appendChild(ellipsis);
+        }
+        
+        const lastButton = document.createElement('button');
+        lastButton.textContent = totalPages;
+        lastButton.onclick = () => {
+            currentPage = totalPages;
+            displaySortedWords();
+            addPaginationControls();
+        };
+        pageNumbers.appendChild(lastButton);
+    }
+    
+    paginationContainer.appendChild(pageNumbers);
+    
+    // Next button
+    const nextButton = document.createElement('button');
+    nextButton.textContent = 'Next →';
+    nextButton.disabled = currentPage === totalPages;
+    nextButton.onclick = () => {
+        if (currentPage < totalPages) {
+            currentPage++;
+            displaySortedWords();
+            addPaginationControls();
+        }
+    };
+    paginationContainer.appendChild(nextButton);
+    
+    wordsList.appendChild(paginationContainer);
 }
 
 document.addEventListener("DOMContentLoaded", fetchToday); 

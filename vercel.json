@@ -14,6 +14,7 @@
         {"source": "/answers/mini-crossword/", "destination": "/public/answers/mini-crossword.html"},
         {"source": "/answers/strands/", "destination": "/public/answers/strands.html"},
         {"source": "/play/wordle/", "destination": "/public/play/wordle.html"},
+        {"source": "/privacy-policy/", "destination": "/public/privacy.html"},
         {"source": "/(.*)", "destination": "/public/$1"}
     ]
 }
