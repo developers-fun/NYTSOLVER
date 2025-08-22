@@ -35,14 +35,23 @@ function generateHints(word) {
 }
 
 module.exports = async (req, res) => {
+    // Security: Only allow requests from nytsolver.net
+    const origin = req.headers.origin;
+    const allowedOrigins = ['https://nytsolver.net', 'https://www.nytsolver.net', 'http://localhost:3000'];
+    
+    if (!origin || !allowedOrigins.includes(origin)) {
+        return res.status(403).json({ error: 'Access denied. Only nytsolver.net is allowed.' });
+    }
+    
     // Set CORS headers
     res.setHeader('Access-Control-Allow-Credentials', true);
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS');
-    res.setHeader(
-        'Access-Control-Allow-Headers',
-        'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
-    );
+    res.setHeader('Access-Control-Allow-Origin', origin);
+    res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    res.setHeader('X-Content-Type-Options', 'nosniff');
+    res.setHeader('X-Frame-Options', 'DENY');
+    res.setHeader('X-XSS-Protection', '1; mode=block');
+    res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
 
     // Handle OPTIONS request
     if (req.method === 'OPTIONS') {

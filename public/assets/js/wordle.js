@@ -110,7 +110,7 @@ window.addEventListener('popstate', () => {
     fetchToday();
 });
 
-document.getElementById("tomorrow").addEventListener("click", tomorrow);
+/*document.getElementById("tomorrow").addEventListener("click", tomorrow);
 document.getElementById("yesterday").addEventListener("click", yesterday);
-document.getElementById("today").addEventListener("click", today);
+document.getElementById("today").addEventListener("click", fetchToday);*/
 document.addEventListener("DOMContentLoaded", fetchToday);
