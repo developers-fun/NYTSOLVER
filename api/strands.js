@@ -5,17 +5,8 @@ const NodeCache = require('node-cache');
 const cache = new NodeCache({ stdTTL: 6 * 60 * 60 });
 
 module.exports = async (req, res) => {
-    // Security: Only allow requests from nytsolver.net
-    const origin = req.headers.origin;
-    const allowedOrigins = ['https://nytsolver.net', 'https://www.nytsolver.net', 'http://localhost:3000'];
-    
-    if (!origin || !allowedOrigins.includes(origin)) {
-        return res.status(403).json({ error: 'Access denied. Only nytsolver.net is allowed.' });
-    }
-    
-    // Set CORS headers
     res.setHeader('Access-Control-Allow-Credentials', true);
-    res.setHeader('Access-Control-Allow-Origin', origin);
+    res.setHeader('Access-Control-Allow-Origin', 'https://nytsolver.net, http://localhost:3000');
     res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     res.setHeader('X-Content-Type-Options', 'nosniff');
