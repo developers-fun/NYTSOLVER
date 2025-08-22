@@ -115,6 +115,7 @@ header > :nth-child(1) {
 footer {
     width: 100%;
     display: flex;
+    margin-top: 50px;
     height: 100px;
     flex-direction: row;
     justify-content: space-between;
