@@ -37,7 +37,7 @@ function generateHints(word) {
 module.exports = async (req, res) => {
 
     res.setHeader('Access-Control-Allow-Credentials', true);
-    res.setHeader('Access-Control-Allow-Origin', 'https://nytsolver.net, http://localhost:3000');
+    res.setHeader('Access-Control-Allow-Origin', 'https://nytsolver.net, https://rememberyour.work, http://localhost:3000');
     res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     res.setHeader('X-Content-Type-Options', 'nosniff');
